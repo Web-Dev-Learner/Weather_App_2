@@ -199,10 +199,18 @@ const styles = StyleSheet.create({
     cityName: {
         fontSize: 24,
         fontWeight: 'bold',
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+        flexDirection:'row',
     },
     countryName: {
-        fontSize: 18,
-        color: 'grey',
+        display:'flex',
+        fontSize: 1,
+        color: 'black',
+        justifyContent:'center',
+        alignItems:'center',
+        
     },
     weatherInfo:{
 
@@ -212,7 +220,8 @@ const styles = StyleSheet.create({
     weatherIcon: {
         width: 100,
         height: 100,
-        marginBottom: 10,
+        marginBottom: 20,
+       
     },
     temperature: {
         flexDirection: 'row',
@@ -223,7 +232,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     conditionText: {
-        fontSize: 18,
+        fontSize: 19,
         color: 'grey',
     },
 
@@ -237,7 +246,7 @@ const styles = StyleSheet.create({
         justifyContent:'space-around',
         alignItems:'center',
         paddingHorizontal: 20,
-        paddingVertical: 50,
+        paddingVertical: 90,
 
           
     },
