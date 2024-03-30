@@ -78,7 +78,7 @@ const Weather =() =>{
            
 
             <View>
-                <View style={styles.cityInfo}>
+                 <View style={styles.cityInfo}> 
 
                     <Text style={styles.cityName}>{wdata.location.name}</Text>
                     <Text style={styles.countryName}>{wdata.location.country}</Text>
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
 
       },
     cityName: {
-        fontSize: 24,
+        fontSize: 30,
         fontWeight: 'bold',
         display:'flex',
         justifyContent:'center',
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
     },
     countryName: {
         display:'flex',
-        fontSize: 1,
+        fontSize: 20,
         color: 'black',
         justifyContent:'center',
         alignItems:'center',
