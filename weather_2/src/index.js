@@ -12,6 +12,8 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
+import { FontAwesome6 } from '@expo/vector-icons';
+
 const Weather =() =>{
     const [loc,setLoc]=useState("london");
     const [wdata,setWdata]=useState({});
@@ -22,6 +24,7 @@ const Weather =() =>{
         if (action.current==false){
             initialData();
             action.current=true;
+           
         }
     },[wdata]);
     async function initialData(){
@@ -33,15 +36,16 @@ const Weather =() =>{
         const response=await fetch(`https://api.weatherapi.com/v1/current.json?key=b5563401497d4e4dbda81654242303&q=${loc}`,{mode:"cors"});
         let data=await response.json()
         setWdata(data); 
+        console.log(data);
     }
     function render_content(){
         if (action.current ==true){
             
             let last_update=wdata.current.last_updated.split(" ");
             let last_time_updated=last_update[1];
-           
+        
         return(
-        <View style={styles.container}>
+        <View id='container' style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerTitle}>Weather App</Text>
                 
@@ -73,14 +77,11 @@ const Weather =() =>{
             </View>
            
              
-               
-      
-           
-
+            <View id={"container_main"} style={styles.container_main}>
             <View>
                  <View style={styles.cityInfo}> 
-
-                    <Text style={styles.cityName}>{wdata.location.name}</Text>
+                    <FontAwesome6 name="location-dot" style={{marginRight:5}} size={24} color="black" />
+                    <Text style={styles.cityName}>{wdata.location.name} ,</Text>
                     <Text style={styles.countryName}>{wdata.location.country}</Text>
                 </View>
                 
@@ -98,8 +99,10 @@ const Weather =() =>{
                 </View>
             </View>
 
-            <View style={styles.footer}>
-              <View style={styles.infoItem}>
+            <View id='footer' style={[styles.footer ,styles.elevation]}>
+
+                <View id='footer_in'  style={styles.footer_in}>
+                <View style={styles.infoItem}>
                 <FontAwesome5 name="wind" size={24} color="black" />
                     <Text>{wdata.current.wind_kph}</Text>
                 </View>
@@ -113,6 +116,30 @@ const Weather =() =>{
                 <AntDesign name="clockcircle" size={24} color="black" />
                     <Text>{last_time_updated}</Text>  
                 </View>  
+                </View>
+              
+               <View id='footer_in'  style={styles.footer_in}>
+
+                <View style={styles.infoItem}> 
+                    <FontAwesome6 name="gauge-high" size={24} color="black" />
+                    <Text>{wdata.current.pressure_in}</Text>  
+                </View>  
+
+                <View style={styles.infoItem}> 
+                    <MaterialCommunityIcons name="temperature-fahrenheit" size={26} color="black" />
+                    <Text>{wdata.current.temp_f}</Text>  
+                </View>
+
+                <View style={styles.infoItem}> 
+                    <Image
+                    source={require('./uv.png')}
+                    style={{width: 29, height: 29}}
+                    />
+                    <Text>{wdata.current.uv}</Text>  
+                </View>
+
+               </View>
+            </View>
             </View>
 
         </View>
@@ -189,20 +216,23 @@ const styles = StyleSheet.create({
 
      
       cityInfo:{
-        flex:1,
-        margin:10,
-        padding:10,
+        display:'flex',
+        flexDirection: 'row',
         alignItems: 'center',
-        marginVertical: 20,
+        alignContent:'center',
+        justifyContent:'center',
+        margin:15,
 
+        flexWrap:'wrap',
       },
     cityName: {
-        fontSize: 30,
+        fontSize: 23,
         fontWeight: 'bold',
         display:'flex',
         justifyContent:'center',
-        alignItems:'center',
+        alignSelf:"center",
         flexDirection:'row',
+        padding:5,
     },
     countryName: {
         display:'flex',
@@ -210,7 +240,8 @@ const styles = StyleSheet.create({
         color: 'black',
         justifyContent:'center',
         alignItems:'center',
-        
+        alignSelf:"center",
+        padding:5,
     },
     weatherInfo:{
 
@@ -238,24 +269,38 @@ const styles = StyleSheet.create({
 
       
     footer:{
-
-        flexDirection:'row',
-        alignContent:'center',
+        //minHeight:150
+        display:"flex",justifyContent:"space-between",minWidth:315,margin: 10,minHeight:150,margin:40,
         
-        display:'flex',
-        justifyContent:'space-around',
-        alignItems:'center',
-        paddingHorizontal: 20,
-        paddingVertical: 90,
-
-          
+    },
+    footer_in:{
+        display:"flex",flexDirection:"row",minWidth:315,justifyContent:"space-around",
     },
     infoItem: {
         alignItems: 'center',
     },
     
-   
-
-  
+    container_main:{
+        padding:10,
+        display: "flex",
+        justifyContent:"space-evenly",
+        alignItems: "center",
+        alignContent:"center",
+        flexDirection: "column",
+        //minHeight
+        minWidth:318,
+        
+    },
+    shadowProp:{
+        shadowColor: "#000000",
+        shadowOffset: {width: 0,height: 2,},
+        shadowOpacity:  0.17,
+        shadowRadius: 2.54,
+        elevation: 3
+    },
+    elevation:{
+        elevation: 20,
+        shadowColor: '#52006A',
+    },
     
 });
